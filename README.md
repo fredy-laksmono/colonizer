@@ -12,7 +12,7 @@
 
 ### Description
 ![Logo]()   
-Colonizer is a real time strategy game where you try to outwit your opponent in resource management. 
+Colonizer is a real time strategy game where you try to outwit your opponent in unit management. 
 
 ***
 
@@ -35,7 +35,7 @@ Colonizer is a real time strategy game where you try to outwit your opponent in 
 
 ### Photos
 ![wireframe](./assets/a.png)
-![entity relationship diagram](./assets/a.png)
+![entity relationship diagram](./assets/colonizer-ERD.png)
 ![component hierarchy diagram](./assets/colonizer-CHD.png)
 
 ***
