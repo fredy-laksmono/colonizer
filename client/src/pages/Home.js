@@ -1,5 +1,10 @@
 const Home = () => {
-  let toRender = <div>Hello</div>;
+  let createRoomRender = (
+    <div>
+      <button>Create Game</button>
+    </div>
+  );
+  let toRender = <div>{createRoomRender}</div>;
   return toRender;
 };
 

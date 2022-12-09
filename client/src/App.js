@@ -1,7 +1,10 @@
 import "./styles/App.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:3001");
 
 function App() {
   return (
