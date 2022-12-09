@@ -29,6 +29,11 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
+
+  socket.on("update_button", (data) => {
+    console.log(data);
+    socket.broadcast.emit("receive_button_update", data);
+  });
 });
 
 server.listen(PORT, () => console.log(`Server Started On Port: ${PORT}`));
