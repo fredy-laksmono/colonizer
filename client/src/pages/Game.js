@@ -4,7 +4,7 @@ import { useState } from "react";
 import GameBoard from "../components/GameBoard";
 
 const Game = () => {
-  const [playerNumber, setPlayerNumber] = useState(3);
+  const [playerNumber, setPlayerNumber] = useState(2);
   let gameWrapperRender = (
     <div>
       <div>The Game</div>
