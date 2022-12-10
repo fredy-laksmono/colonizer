@@ -1,29 +1,31 @@
-const GameBoard = ({ playerNumber, game, player, onMove }) => {
+import Planet from "./Planet"
+
+const GameBoard = ({ socket, playersNumber, game, player, onMove }) => {
     
     let twoPlayerBoard = (<div id="game-board-wrapper-2">
         <div>1.1</div>
         <div>1.2</div>
-        <div>1.3</div>
+        <div><Planet x={1} y={3} /></div>
         <div>1.4</div>
         <div>1.5</div>
         <div>2.1</div>
-        <div>2.2</div>
-        <div>2.3</div>
-        <div>2.4</div>
+        <div><Planet /></div>
+        <div><Planet /></div>
+        <div><Planet /></div>
         <div>2.5</div>
-        <div>3.1</div>
-        <div>3.2</div>
-        <div>3.3</div>
-        <div>3.4</div>
-        <div>3.5</div>
+        <div><Planet /></div>
+        <div><Planet /></div>
+        <div><Planet /></div>
+        <div><Planet /></div>
+        <div><Planet /></div>
         <div>4.1</div>
-        <div>4.2</div>
-        <div>4.3</div>
-        <div>4.4</div>
+        <div><Planet /></div>
+        <div><Planet /></div>
+        <div><Planet /></div>
         <div>4.5</div>
         <div>5.1</div>
         <div>5.2</div>
-        <div>5.3</div>
+        <div><Planet /></div>
         <div>5.4</div>
         <div>5.5</div>
     </div>)
@@ -120,16 +122,16 @@ const GameBoard = ({ playerNumber, game, player, onMove }) => {
     </div>)
 
     let boardRender = <div></div>
-    if (playerNumber === 2) {
+    if (playersNumber === 2) {
         boardRender = twoPlayerBoard;
-    } else if (playerNumber === 3) {
+    } else if (playersNumber === 3) {
         boardRender = threePlayerBoard;
-    } else if (playerNumber === 4) {
+    } else if (playersNumber === 4) {
         boardRender = fourPlayerBoard;
     }
 
     let toRender = (<div>
-        <div>boardRender for {playerNumber}</div>
+        <div>boardRender for {playersNumber}</div>
         <div>{boardRender}</div>
     </div>)
     return toRender

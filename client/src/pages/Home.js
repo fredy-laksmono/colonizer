@@ -148,7 +148,7 @@ const Home = ({ socket }) => {
   let toRender = (
     <div>
       <div>{createRoomRender}</div>
-      <Game />
+      <Game socket={socket} />
     </div>
   );
   return toRender;
