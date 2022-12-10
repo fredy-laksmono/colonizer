@@ -31,8 +31,15 @@ io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
   socket.on("update_button", (data) => {
-    console.log(data);
     socket.broadcast.emit("receive_button_update", data);
+  });
+
+  socket.on("host_change", (data) => {
+    socket.broadcast.emit("change_host", data);
+  });
+
+  socket.on("send_counter", (data) => {
+    socket.broadcast.emit("receive_counter", data);
   });
 });
 

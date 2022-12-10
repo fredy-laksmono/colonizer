@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Game from "./Game";
 
 const Home = ({ socket }) => {
   const [buttonStatus, toggleButtonStatus] = useState({
@@ -13,9 +14,11 @@ const Home = ({ socket }) => {
     but9: false
   });
 
+  const [isRunCounter, updateIsRunCounter] = useState(false);
+
   const [counter, updateCounter] = useState(0);
 
-  const [isMainPlayer, updateMainPlayer] = useState(false);
+  const [isHost, updateHost] = useState(false);
 
   const [isNewUpdate, updateIsNewUpdate] = useState(false);
 
@@ -27,20 +30,62 @@ const Home = ({ socket }) => {
     updateIsNewUpdate(true);
   };
 
-  const setMainPlayer = () => {
-    updateMainPlayer(!isMainPlayer);
+  const toggleHost = () => {
+    updateHost(!isHost);
+    socket.emit("host_change", isHost);
     socket.emit("update_button", buttonStatus);
   };
 
+  const startCounter = () => {
+    updateIsRunCounter(true);
+  };
+
+  const stopCounter = () => {
+    updateIsRunCounter(false);
+  };
+
+  const resetCounter = () => {
+    updateCounter(0);
+  };
+
+  const removeHost = () => {
+    updateHost(false);
+  };
+
   useEffect(() => {
-    if (isMainPlayer) {
+    if (isRunCounter) {
+      const counterInterval = setInterval(() => {
+        updateCounter((prev) => prev + 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(counterInterval);
+      };
+    }
+  }, [isRunCounter]);
+
+  useEffect(() => {
+    if (isHost) {
       socket.emit("update_button", buttonStatus);
     }
   }, [buttonStatus]);
 
   useEffect(() => {
+    if (isHost) {
+      socket.emit("send_counter", counter);
+    }
+  }, [counter]);
+
+  useEffect(() => {
     socket.on("receive_button_update", (data) => {
       toggleButtonStatus(data);
+    });
+    socket.on("change_host", (data) => {
+      removeHost();
+    });
+    socket.on("receive_counter", (data) => {
+      updateCounter(data);
+      updateIsRunCounter(false);
     });
   }, [socket]);
 
@@ -83,13 +128,29 @@ const Home = ({ socket }) => {
         </button>
       </div>
       <div>
-        <button onClick={setMainPlayer}>
-          {isMainPlayer ? "Main Player" : "Other Players"}
-        </button>
+        <button onClick={toggleHost}>{isHost ? "Host" : "Make host"}</button>
+      </div>
+      <div>
+        <label>{counter}</label>
+      </div>
+      <div>
+        <button onClick={startCounter}>Start Counter</button>
+      </div>
+      <div>
+        <button onClick={stopCounter}>Stop Counter</button>
+      </div>
+      <div>
+        <button onClick={resetCounter}>Reset Counter</button>
       </div>
     </div>
   );
-  let toRender = <div>{createRoomRender}</div>;
+
+  let toRender = (
+    <div>
+      <div>{createRoomRender}</div>
+      <Game />
+    </div>
+  );
   return toRender;
 };
 
