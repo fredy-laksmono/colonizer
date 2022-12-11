@@ -1,4 +1,4 @@
-const Planet = ({type, owner, units, x, y}) => {
+const Planet = ({player, gameState, updateGameState, x, y}) => {
     let toRender = (<div>
         <button>
             <div>Type</div>

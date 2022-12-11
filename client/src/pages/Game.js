@@ -7,130 +7,142 @@ const Game = ({ socket }) => {
   const [playersNumber, setPlayersNumber] = useState(2);
   const [player, setPlayer] = useState("1");
   const [gameState, updateGameState] = useState({
-    post11: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post12: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post13: {
-      type: "flag",
-      owner: "none",
-      units: 0
-    },
-    post14: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post15: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post21: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post22: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post23: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post24: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post25: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post31: {
-      type: "base",
-      owner: "p1",
-      units: 1
-    },
-    post32: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post33: {
-      type: "flag",
-      owner: "none",
-      units: 0
-    },
-    post34: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post35: {
-      type: "base",
-      owner: "p2",
-      units: 1
-    },
-    post41: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post42: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post43: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post44: {
-      type: "planet",
-      owner: "none",
-      units: 0
-    },
-    post45: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post51: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post52: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post53: {
-      type: "flag",
-      owner: "none",
-      units: 0
-    },
-    post54: {
-      type: "none",
-      owner: "none",
-      units: 0
-    },
-    post55: {
-      type: "none",
-      owner: "none",
-      units: 0
+    planet: {
+      1: {
+        1: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        2: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        3: {
+          type: "flag",
+          owner: "none",
+          units: 0
+        },
+        4: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        5: {
+          type: "none",
+          owner: "none",
+          units: 0
+        }
+      },
+      2: {
+        1: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        2: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        3: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        4: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        5: {
+          type: "none",
+          owner: "none",
+          units: 0
+        }
+      },
+      3: {
+        1: {
+          type: "base",
+          owner: "none",
+          units: 0
+        },
+        2: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        3: {
+          type: "flag",
+          owner: "none",
+          units: 0
+        },
+        4: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        5: {
+          type: "base",
+          owner: "none",
+          units: 0
+        }
+      },
+      4: {
+        1: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        2: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        3: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        4: {
+          type: "planet",
+          owner: "none",
+          units: 0
+        },
+        5: {
+          type: "none",
+          owner: "none",
+          units: 0
+        }
+      },
+      5: {
+        1: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        2: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        3: {
+          type: "flag",
+          owner: "none",
+          units: 0
+        },
+        4: {
+          type: "none",
+          owner: "none",
+          units: 0
+        },
+        5: {
+          type: "none",
+          owner: "none",
+          units: 0
+        }
+      }
     }
   });
   let gameWrapperRender = (
@@ -144,6 +156,7 @@ const Game = ({ socket }) => {
           playersNumber={playersNumber}
           player={player}
           gameState={gameState}
+          updateGameState={updateGameState}
         />
       </div>
     </div>

@@ -1,31 +1,31 @@
 import Planet from "./Planet"
 
-const GameBoard = ({ socket, playersNumber, game, player, onMove }) => {
+const GameBoard = ({ socket, playersNumber, game, player, onMove, gameState, updateGameState }) => {
     
     let twoPlayerBoard = (<div id="game-board-wrapper-2">
         <div>1.1</div>
         <div>1.2</div>
-        <div><Planet x={1} y={3} /></div>
+        <div><Planet x={1} y={3} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
         <div>1.4</div>
         <div>1.5</div>
         <div>2.1</div>
-        <div><Planet /></div>
-        <div><Planet /></div>
-        <div><Planet /></div>
+        <div><Planet x={2} y={2} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={2} y={3} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={2} y={4} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
         <div>2.5</div>
-        <div><Planet /></div>
-        <div><Planet /></div>
-        <div><Planet /></div>
-        <div><Planet /></div>
-        <div><Planet /></div>
+        <div><Planet x={3} y={1} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={3} y={2} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={3} y={3} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={3} y={4} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={3} y={5} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
         <div>4.1</div>
-        <div><Planet /></div>
-        <div><Planet /></div>
-        <div><Planet /></div>
+        <div><Planet x={4} y={2} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={4} y={3} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
+        <div><Planet x={4} y={4} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
         <div>4.5</div>
         <div>5.1</div>
         <div>5.2</div>
-        <div><Planet /></div>
+        <div><Planet x={5} y={3} player={player} gameState={gameState} updateGameState={updateGameState} socket={socket}/></div>
         <div>5.4</div>
         <div>5.5</div>
     </div>)
