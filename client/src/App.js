@@ -7,6 +7,8 @@ import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");
 
 function App() {
+  const [authenticated, toggleAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
   return (
     <div className="App">
       <main>
