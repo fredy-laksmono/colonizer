@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Unique.hasMany(models.Race, { foreignKey: "unique_id" });
     }
   }
   Unique.init(
