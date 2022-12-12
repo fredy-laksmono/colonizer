@@ -43,8 +43,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("planet_click", (data) => {
-    console.log("emit_planet click", data);
+    // console.log("emit_planet click", data);
     socket.broadcast.emit("planet_update", data);
+  });
+
+  socket.on("send_game_state", (data) => {
+    // console.log("game state sent", data);
+    socket.broadcast.emit("recieve_game_state", data);
   });
 });
 

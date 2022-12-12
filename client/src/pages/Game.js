@@ -6,6 +6,7 @@ import GameBoard from "../components/GameBoard";
 const Game = ({ socket, isHost, isRunCounter }) => {
   const [p1Counter, updatep1Counter] = useState(10);
   const [p2Counter, updatep2Counter] = useState(10);
+  const [serverGameTime, updateServerGameTime] = useState(0);
   const [playersNumber, setPlayersNumber] = useState(2);
   const [player, setPlayer] = useState("p1");
   const [gameState, updateGameState] = useState({
@@ -147,22 +148,46 @@ const Game = ({ socket, isHost, isRunCounter }) => {
   });
 
   // triggered when player update a planet
-  useEffect(() => {
-    socket.on("planet_update", (data) => {
+
+  socket.on("planet_update", (data) => {
+    if (data.x !== 3) {
       updateGameState({
         ...gameState,
         [data.x]: {
           ...gameState[data.x],
-          [data.y]: { ...gameState[data.x][data.y], owner: data.player }
+          [data.y]: {
+            ...gameState[data.x][data.y],
+            owner: data.player,
+            units: data.unitsToSend
+          }
+        },
+        3: {
+          ...gameState[3],
+          [5]: { ...gameState[3][5], units: data.unitsLeft }
         }
       });
-    });
+    } else if (data.x === 3) {
+      updateGameState({
+        ...gameState,
+        [data.x]: {
+          ...gameState[data.x],
+          [data.y]: {
+            ...gameState[data.x][data.y],
+            owner: data.player,
+            units: data.unitsToSend
+          },
+          [5]: { ...gameState[3][5], units: data.unitsLeft }
+        }
+      });
+    }
+
+    updatep2Counter(data.unitsLeft);
   });
 
   // game state to pause/run
-  console.log("isRunCounter", isRunCounter);
+  // console.log("isRunCounter", isRunCounter);
   useEffect(() => {
-    console.log("use effect isRunCounter", isRunCounter);
+    // console.log("use effect isRunCounter", isRunCounter);
     if (isRunCounter) {
       const baseCounter = setInterval(() => {
         updatep1Counter((prev1) => prev1 + 1);
@@ -173,10 +198,15 @@ const Game = ({ socket, isHost, isRunCounter }) => {
         clearInterval(baseCounter);
       };
     }
-    socket.on("game_sync_update", (data) => {
-      updateGameState(data.gameState);
-    });
   }, [isRunCounter]);
+
+  // global sync
+  useEffect(() => {
+    socket.on("recieve_game_state", (gameState) => {
+      // console.log("game state received", gameState);
+      updateGameState(gameState);
+    });
+  }, [socket]);
 
   // triggered gameState update
   useEffect(() => {
@@ -188,10 +218,24 @@ const Game = ({ socket, isHost, isRunCounter }) => {
         [5]: { ...gameState[3][5], units: p2Counter }
       }
     });
-    if (isHost) {
-      socket.emit("game_sync_update", gameState);
-    }
   }, [p1Counter]);
+
+  // triggered game sync
+  useEffect(() => {
+    if (isHost) {
+      socket.emit("send_game_state", gameState);
+    }
+  }, [serverGameTime]);
+
+  useEffect(() => {
+    const serverCounter = setInterval(() => {
+      updateServerGameTime((prev) => prev + 1);
+    }, 50);
+
+    return () => {
+      clearInterval(serverCounter);
+    };
+  }, []);
 
   let gameWrapperRender = (
     <div>
@@ -205,6 +249,8 @@ const Game = ({ socket, isHost, isRunCounter }) => {
           player={player}
           gameState={gameState}
           updateGameState={updateGameState}
+          updatep1Counter={updatep1Counter}
+          updatep2Counter={updatep2Counter}
         />
       </div>
     </div>
