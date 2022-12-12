@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Game from "./Game";
 
-const Home = ({ socket }) => {
+const Home = ({ socket, authenticated, user }) => {
   const [buttonStatus, toggleButtonStatus] = useState({
     but1: false,
     but2: false,

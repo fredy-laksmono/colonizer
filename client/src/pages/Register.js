@@ -5,11 +5,9 @@ import { RegisterUser, SignInUser } from "../services/Auth";
 const Register = ({ setUser, toggleAuthenticated }) => {
   // Variables
   const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
-    password: "",
-    confirmPassword: ""
+    password: ""
   });
   const [isShowPassword, toggleIsShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,18 +17,17 @@ const Register = ({ setUser, toggleAuthenticated }) => {
   const handlePasswordToggle = (e) => {
     if (e.target.checked) {
       toggleIsShowPassword(true);
-      setFormValues({ ...formValues, confirmPassword: "" });
     } else {
       toggleIsShowPassword(false);
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formValues);
     setErrorMessage("");
     try {
       const registerUser = await RegisterUser({
-        firstName: formValues.firstName,
-        lastName: formValues.lastName,
+        name: formValues.name,
         email: formValues.email,
         password: formValues.password
       });
@@ -42,14 +39,13 @@ const Register = ({ setUser, toggleAuthenticated }) => {
       setUser(payload);
       toggleAuthenticated(true);
       setFormValues({
-        firstName: "",
-        lastName: "",
+        name: "",
         email: "",
-        password: "",
-        confirmPassword: ""
+        password: ""
       });
       navigate("/");
     } catch (error) {
+      console.log(error);
       if (error.response.data.msg == "Email already in use.") {
         setErrorMessage(error.response.data.msg);
       } else {
@@ -93,19 +89,6 @@ const Register = ({ setUser, toggleAuthenticated }) => {
           Show Password
         </label>
       </div>
-      <br />
-      <div className="register-label">
-        <label>Confirm Password </label>{" "}
-        <input
-          onChange={handleChange}
-          value={formValues.confirmPassword}
-          name="confirmPassword"
-          type="password"
-          required
-        />{" "}
-        <br />
-      </div>
-      {passwordMatchRender} <br />
     </div>
   );
   if (isShowPassword) {
@@ -143,21 +126,10 @@ const Register = ({ setUser, toggleAuthenticated }) => {
       Register
     </button>
   );
-  if (
-    formValues.firstName &&
-    formValues.lastName &&
-    formValues.email &&
-    formValues.password
-  ) {
-    if (isShowPassword) {
-      registerButtonRender = (
-        <button className="register-button">Register</button>
-      );
-    } else if (formValues.password === formValues.confirmPassword) {
-      registerButtonRender = (
-        <button className="register-confirm">Register</button>
-      );
-    }
+  if (formValues.name && formValues.email && formValues.password) {
+    registerButtonRender = (
+      <button className="register-button">Register</button>
+    );
   }
 
   let errorMessageRender = <div></div>;
@@ -169,25 +141,13 @@ const Register = ({ setUser, toggleAuthenticated }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="register-label">
-          <label>First Name </label>{" "}
+          <label>Name </label>{" "}
           <input
             onChange={handleChange}
-            value={formValues.firstName}
-            name="firstName"
+            value={formValues.name}
+            name="name"
             type="text"
-            placeholder="John"
-            required
-          />{" "}
-        </div>
-        <br />
-        <div className="register-label">
-          <label>Last Name </label>{" "}
-          <input
-            onChange={handleChange}
-            value={formValues.lastName}
-            name="lastName"
-            type="text"
-            placeholder="Doe"
+            placeholder="John Doe"
             required
           />{" "}
         </div>
@@ -212,7 +172,7 @@ const Register = ({ setUser, toggleAuthenticated }) => {
   );
   let toRender = (
     <div className="register-container">
-      <div className="register-header">Create your account below</div>
+      <div className="register-header">New account</div>
       {registerFormRender}
     </div>
   );
