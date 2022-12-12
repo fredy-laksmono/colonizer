@@ -134,10 +134,10 @@ const Home = ({ socket }) => {
         <label>{counter}</label>
       </div>
       <div>
-        <button onClick={startCounter}>Start Counter</button>
+        <button onClick={startCounter}>Play</button>
       </div>
       <div>
-        <button onClick={stopCounter}>Stop Counter</button>
+        <button onClick={stopCounter}>Pause</button>
       </div>
       <div>
         <button onClick={resetCounter}>Reset Counter</button>
@@ -148,7 +148,7 @@ const Home = ({ socket }) => {
   let toRender = (
     <div>
       <div>{createRoomRender}</div>
-      <Game socket={socket} />
+      <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
     </div>
   );
   return toRender;

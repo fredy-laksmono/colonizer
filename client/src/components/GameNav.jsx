@@ -6,7 +6,7 @@ const GameNav = ({ setPlayersNumber, setPlayer, game, user, handleLogout }) => {
         setPlayer(e.target.value);
     }
     return (<div>
-        Game Nav <button onClick={handlePlayer} value="1" >Player 1</button> <button onClick={handlePlayer} value="2">Player 2</button> 
+        Game Nav <button onClick={handlePlayer} value="p1" >Player 1</button> <button onClick={handlePlayer} value="p2">Player 2</button> 
     </div>)
 }
 export default GameNav;

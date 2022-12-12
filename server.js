@@ -41,6 +41,11 @@ io.on("connection", (socket) => {
   socket.on("send_counter", (data) => {
     socket.broadcast.emit("receive_counter", data);
   });
+
+  socket.on("planet_click", (data) => {
+    console.log("emit_planet click", data);
+    socket.broadcast.emit("planet_update", data);
+  });
 });
 
 server.listen(PORT, () => console.log(`Server Started On Port: ${PORT}`));
