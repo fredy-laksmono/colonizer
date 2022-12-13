@@ -5,10 +5,20 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
     if (user) {
       authenticatedOptions = (
         <nav className="signin-nav">
-          <h3>Welcome {user.name}!</h3>
-          <button onClick={handleLogOut}>
-            Sign Out
-          </button>
+          <div></div>
+          <div className='signin-nav-menu'>
+            <div></div>
+            <div className='click-able'>Play</div>
+            <div className='click-able'>Race</div>
+            <div></div>
+          </div>
+          <div className='signin-nav-profile'>
+            <button onClick={handleLogOut}>
+              Log Out
+            </button>
+            <div>{user.name}</div>
+          </div>
+          
         </nav>
       )
     }

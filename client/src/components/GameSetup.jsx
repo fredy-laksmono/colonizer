@@ -1,4 +1,4 @@
 const GameSetup = () => {
-    return
+    return 
 }
 export default GameSetup

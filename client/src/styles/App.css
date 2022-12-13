@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+.signin-nav {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+}
+
+.signin-nav-menu {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr;
+}
+
+.signin-nav-profile {
+  display: grid;
+  grid-template-columns: 2fr 2fr ;
+}
+
 .click-able{
   cursor: pointer;
   transition: all 0.2s;
