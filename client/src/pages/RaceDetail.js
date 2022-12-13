@@ -1,9 +1,10 @@
-import e from "cors";
 import { useState, useEffect } from "react";
 import UniqueCard from "../components/UniqueCard";
 import { GetUniques } from "../services/UniqueServices";
+import { CreateRace } from "../services/RaceServices";
+import { useNavigate } from "react-router-dom";
 
-const RaceDetail = () => {
+const RaceDetail = ({ user, authenticated }) => {
   const [raceForm, updateRaceForm] = useState({
     name: "",
     small: 1,
@@ -14,6 +15,7 @@ const RaceDetail = () => {
 
   const [balance, updateBalance] = useState(-3);
   const [uniques, updateUniques] = useState([]);
+  const navigate = useNavigate();
 
   const countBalance = () => {
     let checkBalance =
@@ -28,8 +30,25 @@ const RaceDetail = () => {
     updateRaceForm({ ...raceForm, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let payload = {
+      name: raceForm.name,
+      small: raceForm.small,
+      medium: raceForm.medium,
+      large: raceForm.large,
+      unique_id: mothership,
+      owner_id: user.id
+    };
+    await CreateRace(payload);
+    updateRaceForm({
+      name: "",
+      small: 1,
+      medium: 1,
+      large: 1
+    });
+    updateMothership(0);
+    navigate("/home");
   };
 
   const getUniqueData = async () => {
