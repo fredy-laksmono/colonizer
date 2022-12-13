@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import UniqueManagement from "./pages/UniqueManagement";
 import RaceDetail from "./pages/RaceDetail";
+import RaceManagement from "./pages/RaceManagement";
 import { CheckSession } from "./services/Auth";
 
 const socket = io.connect("http://localhost:3001");
@@ -87,6 +88,7 @@ function App() {
             }
           />
           <Route path="/unique" element={<UniqueManagement />} />
+          <Route path="/races" element={<RaceManagement />} />
           <Route
             path="/races/new"
             element={<RaceDetail user={user} authenticated={authenticated} />}
