@@ -1,6 +1,6 @@
 const { Unique } = require("../models");
 
-const createUnique = async (req, res) => {
+const CreateUnique = async (req, res) => {
   try {
     const unique = await Unique.create(req.body);
     res.send(unique);
@@ -10,5 +10,5 @@ const createUnique = async (req, res) => {
 };
 
 module.exports = {
-  createUnique
+  CreateUnique
 };
