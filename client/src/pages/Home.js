@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Game from "./Game";
+import { useNavigate } from "react-router-dom";
 
 const Home = ({ socket, authenticated, user }) => {
   const [buttonStatus, toggleButtonStatus] = useState({
@@ -21,6 +22,11 @@ const Home = ({ socket, authenticated, user }) => {
   const [isHost, updateHost] = useState(false);
 
   const [isNewUpdate, updateIsNewUpdate] = useState(false);
+
+  const navigate = useNavigate();
+  if (!authenticated) {
+    navigate("/");
+  }
 
   const handleButtonUpdate = (e) => {
     toggleButtonStatus({
