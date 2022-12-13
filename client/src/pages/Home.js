@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Game from "./Game";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ socket, authenticated, user }) => {
+const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
   const [buttonStatus, toggleButtonStatus] = useState({
     but1: false,
     but2: false,
@@ -27,6 +27,8 @@ const Home = ({ socket, authenticated, user }) => {
   if (!authenticated) {
     navigate("/");
   }
+
+  console.log(user);
 
   const handleButtonUpdate = (e) => {
     toggleButtonStatus({
@@ -102,7 +104,7 @@ const Home = ({ socket, authenticated, user }) => {
     }
   }, [isNewUpdate]);
 
-  let createRoomRender = (
+  let gameTopMenuRender = (
     <div>
       <div>
         <button id="but1" onClick={handleButtonUpdate}>
@@ -153,8 +155,14 @@ const Home = ({ socket, authenticated, user }) => {
 
   let toRender = (
     <div>
-      <div>{createRoomRender}</div>
-      <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
+      {inGame ? (
+        <div>
+          <div>{gameTopMenuRender}</div>
+          <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
   return toRender;

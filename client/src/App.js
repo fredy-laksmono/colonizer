@@ -57,7 +57,13 @@ function App() {
           <Route
             path="/home"
             element={
-              <Home socket={socket} authenticated={authenticated} user={user} />
+              <Home
+                socket={socket}
+                authenticated={authenticated}
+                user={user}
+                inGame={inGame}
+                toggleInGame={toggleInGame}
+              />
             }
           />
           <Route
