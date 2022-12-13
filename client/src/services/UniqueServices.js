@@ -8,3 +8,12 @@ export const CreateUnique = async (data) => {
     throw error;
   }
 };
+
+export const GetUniques = async () => {
+  try {
+    const res = await Client.get("/api/uniques");
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};

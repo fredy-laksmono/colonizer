@@ -9,4 +9,11 @@ router.post(
   controller.CreateUnique
 );
 
+router.get(
+  "/",
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetUnique
+);
+
 module.exports = router;

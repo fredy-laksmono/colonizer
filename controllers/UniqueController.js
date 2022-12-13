@@ -9,6 +9,16 @@ const CreateUnique = async (req, res) => {
   }
 };
 
+const GetUnique = async (req, res) => {
+  try {
+    const unique = await Unique.findAll();
+    res.send(unique);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
-  CreateUnique
+  CreateUnique,
+  GetUnique
 };
