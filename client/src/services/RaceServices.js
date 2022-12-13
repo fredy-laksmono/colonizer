@@ -17,3 +17,12 @@ export const GetUserRaces = async (userId) => {
     throw error;
   }
 };
+
+export const DeleteRace = async (raceId) => {
+  try {
+    const res = await Client.delete(`/api/races/${raceId}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};

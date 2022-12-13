@@ -1,9 +1,12 @@
-const RaceCard = ({race}) => {
+import { DeleteRace } from "../services/RaceServices";
+
+const RaceCard = ({race, needUpdate}) => {
     const deleteRace = () => {
-        // do deletion
+        deleteRace(race.id)
+        needUpdate()
     }
     return (<div>
-        {race.name}
+        {race.name} <button onClick={deleteRace} >Delete</button>
     </div>)
 }
 

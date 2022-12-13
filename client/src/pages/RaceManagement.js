@@ -7,19 +7,41 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   const navigate = useNavigate();
   const [races, updateRaces] = useState([]);
   const [needUpdate, toggleNeedUpdate] = useState(false);
+  const [needCheckSession, toggleNeedCheckSession] = useState(false);
+
+  const checkForSession = () => {
+    if (!user) {
+      navigate("/signin");
+    } else {
+      toggleNeedCheckSession(false);
+    }
+  };
+  if (!authenticated) {
+    setTimeout(() => {
+      toggleNeedCheckSession(true);
+    }, 5000);
+  }
 
   const handleCreateNewRace = () => {
     navigate("/races/new");
   };
 
-  if (!authenticated) {
-    navigate("/welcome");
-  }
+  const triggerUpdate = () => {
+    toggleNeedUpdate(true);
+  };
+
+  // check for session
+  useEffect(() => {
+    if (needCheckSession) {
+      checkForSession();
+    }
+  }, [needCheckSession]);
 
   // run when update needed
   useEffect(() => {
     if (userRaces && needUpdate) {
       updateRaces(userRaces);
+      toggleNeedUpdate(false);
     }
   }, [needUpdate]);
 
@@ -35,7 +57,7 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
       {userRaces ? (
         <div>
           {userRaces.map((race) => (
-            <RaceCard key={race.id} race={race} />
+            <RaceCard key={race.id} race={race} needUpdate={triggerUpdate} />
           ))}
         </div>
       ) : (
@@ -45,9 +67,18 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   );
   let toRender = (
     <div>
-      <div>Manage your race</div>
-      {raceListRender}
-      <button onClick={handleCreateNewRace}>Create new race</button>
+      {!authenticated ? (
+        <div>
+          Checking for login data.. You will be forwarded to login page if no
+          session found.
+        </div>
+      ) : (
+        <div>
+          <div>Manage your race</div>
+          {raceListRender}
+          <button onClick={handleCreateNewRace}>Create new race</button>
+        </div>
+      )}
     </div>
   );
   return toRender;
