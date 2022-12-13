@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CreateUnique } from "../services/UniqueServices";
 
 const UniqueManagement = () => {
   const [uniqueForm, updateUniqueForm] = useState({
@@ -10,7 +11,8 @@ const UniqueManagement = () => {
     updateUniqueForm({ ...uniqueForm, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    await CreateUnique(uniqueForm);
     updateUniqueForm({
       name: "",
       description: ""
