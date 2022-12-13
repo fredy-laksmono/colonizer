@@ -22,15 +22,15 @@ module.exports = {
           key: "id"
         }
       },
-      grow: {
+      small: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      attack: {
+      medium: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      health: {
+      large: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

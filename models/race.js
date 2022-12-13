@@ -28,15 +28,15 @@ module.exports = (sequelize, DataTypes) => {
           key: "id"
         }
       },
-      grow: {
+      small: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      attack: {
+      medium: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      health: {
+      large: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
