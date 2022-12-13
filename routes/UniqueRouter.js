@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const controller = require("../controllers/UniqueController");
+const middleware = require("../middleware");
 
 router.post(
   "/",
@@ -7,3 +8,5 @@ router.post(
   middleware.verifyToken,
   controller.CreateUnique
 );
+
+module.exports = router;
