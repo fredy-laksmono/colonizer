@@ -19,6 +19,16 @@ const GetUserRaces = async (req, res) => {
   }
 };
 
+const GetRace = async (req, res) => {
+  try {
+    let raceId = parseInt(req.params.id);
+    const race = await Race.findByPk(raceId);
+    res.send(race);
+  } catch (error) {
+    res.send({ message: `${error}` });
+  }
+};
+
 const DeleteRace = async (req, res) => {
   try {
     let raceId = parseInt(req.params.id);
@@ -37,7 +47,7 @@ const DeleteRace = async (req, res) => {
   }
 };
 
-const updateRace = async (req, res) => {
+const UpdateRace = async (req, res) => {
   try {
     let raceId = parseInt(req.params.id);
     const token = req.headers["authorization"].split(" ")[1];
@@ -60,5 +70,6 @@ module.exports = {
   CreateRace,
   GetUserRaces,
   DeleteRace,
-  updateRace
+  UpdateRace,
+  GetRace
 };

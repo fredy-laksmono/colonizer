@@ -26,3 +26,12 @@ export const DeleteRace = async (raceId) => {
     throw error;
   }
 };
+
+export const UpdateRace = async (raceId) => {
+  try {
+    const res = await Client.put(`/api/races/${raceId}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
