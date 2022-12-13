@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import Welcome from "./pages/Welcome";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import UniqueManagement from "./pages/UniqueManagement";
 import { CheckSession } from "./services/Auth";
 
 const socket = io.connect("http://localhost:3001");
@@ -84,6 +85,7 @@ function App() {
               />
             }
           />
+          <Route path="/unique" element={<UniqueManagement />} />
         </Routes>
       </main>
     </div>
