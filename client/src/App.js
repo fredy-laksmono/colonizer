@@ -11,6 +11,7 @@ import UniqueManagement from "./pages/UniqueManagement";
 import RaceDetail from "./pages/RaceDetail";
 import RaceManagement from "./pages/RaceManagement";
 import { CheckSession } from "./services/Auth";
+import { GetUserRaces } from "./services/RaceServices";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -18,6 +19,7 @@ function App() {
   const [authenticated, toggleAuthenticated] = useState(false);
   const [inGame, toggleInGame] = useState(false);
   const [user, setUser] = useState(null);
+  const [userRaces, setUserRaces] = useState([]);
 
   const handleLogOut = () => {
     //Reset all auth related state and clear localStorage
@@ -31,6 +33,18 @@ function App() {
     setUser(user);
     toggleAuthenticated(true);
   };
+
+  const getUserRaces = async (userId) => {
+    let payload = await GetUserRaces(userId);
+    setUserRaces(payload);
+  };
+
+  // load data if user have a valid session
+  useEffect(() => {
+    if (user) {
+      getUserRaces(user.id);
+    }
+  }, [user]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -66,6 +80,7 @@ function App() {
                 user={user}
                 inGame={inGame}
                 toggleInGame={toggleInGame}
+                userRaces={userRaces}
               />
             }
           />
@@ -88,7 +103,10 @@ function App() {
             }
           />
           <Route path="/unique" element={<UniqueManagement />} />
-          <Route path="/races" element={<RaceManagement />} />
+          <Route
+            path="/races"
+            element={<RaceManagement userRaces={userRaces} />}
+          />
           <Route
             path="/races/new"
             element={<RaceDetail user={user} authenticated={authenticated} />}

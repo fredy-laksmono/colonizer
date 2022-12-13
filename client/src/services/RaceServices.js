@@ -9,9 +9,9 @@ export const CreateRace = async (data) => {
   }
 };
 
-export const GetRaces = async () => {
+export const GetUserRaces = async (userId) => {
   try {
-    const res = await Client.get("/api/races");
+    const res = await Client.get(`/api/races/${userId}`);
     return res.data;
   } catch (error) {
     throw error;

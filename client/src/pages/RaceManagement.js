@@ -1,15 +1,27 @@
 import { useNavigate } from "react-router-dom";
+import RaceCard from "../components/RaceCard";
 
-const RaceManagement = () => {
+const RaceManagement = ({ userRaces }) => {
   const navigate = useNavigate();
+
+  if (userRaces) {
+    console.log("user race", userRaces);
+  }
 
   const handleCreateNewRace = () => {
     navigate("/races/new");
   };
   let raceListRender = (
     <div>
-      <div>Race List</div>
-      <div>Race a</div>
+      {userRaces ? (
+        <div>
+          {userRaces.map((race) => (
+            <RaceCard key={race.id} race={race} />
+          ))}
+        </div>
+      ) : (
+        <div>loading..</div>
+      )}
     </div>
   );
   let toRender = (
