@@ -9,4 +9,10 @@ router.post(
   controller.CreateRace
 );
 
+router.get(
+  "/:id",
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetUserRaces
+);
 module.exports = router;

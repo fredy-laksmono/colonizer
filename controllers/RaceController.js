@@ -9,6 +9,17 @@ const CreateRace = async (req, res) => {
   }
 };
 
+const GetUserRaces = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.id);
+    const races = await Race.findAll({ where: { user_id: userId } });
+    res.send(races);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
-  CreateRace
+  CreateRace,
+  GetUserRaces
 };
