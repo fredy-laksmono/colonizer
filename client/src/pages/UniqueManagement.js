@@ -22,14 +22,24 @@ const UniqueManagement = () => {
       <div>Unique Management</div>
       <div>
         <label>Name</label>
-        <input id="name" value={uniqueForm.name} type="text" />
+        <input
+          onChange={handleChange}
+          id="name"
+          value={uniqueForm.name}
+          type="text"
+        />
       </div>
       <div>
         <label>Description</label>
-        <input id="description" value={uniqueForm.description} type="text" />
+        <input
+          onChange={handleChange}
+          id="description"
+          value={uniqueForm.description}
+          type="text"
+        />
       </div>
       <div>
-        <button>Create</button>
+        <button onClick={handleSubmit}>Create</button>
       </div>
     </div>
   );
