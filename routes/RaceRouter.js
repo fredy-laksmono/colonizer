@@ -17,7 +17,7 @@ router.get(
 );
 
 router.delete(
-  "/:id",
+  "/:id/",
   middleware.stripToken,
   middleware.verifyToken,
   controller.DeleteRace

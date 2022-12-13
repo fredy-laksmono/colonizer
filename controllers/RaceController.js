@@ -5,7 +5,7 @@ const CreateRace = async (req, res) => {
     const race = await Race.create(req.body);
     res.send(race);
   } catch (error) {
-    throw error;
+    res.send({ message: `${error}` });
   }
 };
 
@@ -15,22 +15,50 @@ const GetUserRaces = async (req, res) => {
     const races = await Race.findAll({ where: { owner_id: userId } });
     res.send(races);
   } catch (error) {
-    throw error;
+    res.send({ message: `${error}` });
   }
 };
 
 const DeleteRace = async (req, res) => {
   try {
     let raceId = parseInt(req.params.id);
-    await Race.destroy({ where: { id: raceId } });
-    res.send({ message: `Deleted race with ID of ${raceId}` });
+    const token = req.headers["authorization"].split(" ")[1];
+    try {
+      let payload = jwt.verify(token, APP_SECRET);
+      await Review.destroy({
+        where: { id: raceId, owner_id: payload.id }
+      });
+      res.send({ message: `Deleted race with ID of ${raceId}` });
+    } catch (error) {
+      res.send({ message: `${error}` });
+    }
   } catch (error) {
-    throw error;
+    res.send({ message: `${error}` });
+  }
+};
+
+const updateRace = async (req, res) => {
+  try {
+    let raceId = parseInt(req.params.id);
+    const token = req.headers["authorization"].split(" ")[1];
+    try {
+      let payload = jwt.verify(token, APP_SECRET);
+      let updatedRace = await Race.update(req.body, {
+        where: { id: raceId, owner_id: payload.id },
+        returning: true
+      });
+      res.send(updatedRace);
+    } catch (error) {
+      res.send({ message: `${error}` });
+    }
+  } catch (error) {
+    res.send({ message: `${error}` });
   }
 };
 
 module.exports = {
   CreateRace,
   GetUserRaces,
-  DeleteRace
+  DeleteRace,
+  updateRace
 };

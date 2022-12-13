@@ -6,8 +6,9 @@ import { GetUserRaces } from "../services/RaceServices";
 const RaceManagement = ({ user, userRaces, authenticated }) => {
   const navigate = useNavigate();
   const [races, updateRaces] = useState([]);
-  const [needUpdate, toggleNeedUpdate] = useState(false);
+  const [needUpdate, toggleNeedUpdate] = useState(true);
   const [needCheckSession, toggleNeedCheckSession] = useState(false);
+  console.log("needUpdate = ", needUpdate);
 
   const checkForSession = () => {
     if (!user) {
@@ -27,6 +28,7 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   };
 
   const triggerUpdate = () => {
+    console.log("triggerUpdate");
     toggleNeedUpdate(true);
   };
 
@@ -37,27 +39,45 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
     }
   }, [needCheckSession]);
 
+  useEffect(() => {
+    console.log("Checking for length");
+    if (races.length === 0) {
+      console.log("Checking for length true");
+      toggleNeedUpdate(true);
+    }
+  });
+
   // run when update needed
   useEffect(() => {
-    if (userRaces && needUpdate) {
-      updateRaces(userRaces);
-      toggleNeedUpdate(false);
-    }
+    const getUserRace = async () => {
+      console.log("needUpdateUseEffect", needUpdate);
+      if (needUpdate && user) {
+        console.log("needUpdate Updating", needUpdate);
+        let payload = await GetUserRaces(user.id);
+        updateRaces(payload);
+        toggleNeedUpdate(false);
+      }
+    };
+    getUserRace();
   }, [needUpdate]);
 
-  // initialize when load
+  // initialize data
   useEffect(() => {
-    if (userRaces) {
+    console.log("initial useEffect");
+    if (userRaces.length !== 0) {
+      console.log("initial useEffect update");
       updateRaces(userRaces);
     }
   }, []);
 
+  console.log("race", races);
+  console.log("userRace", userRaces);
   let raceListRender = (
     <div>
-      {userRaces ? (
+      {races.length !== 0 ? (
         <div>
-          {userRaces.map((race) => (
-            <RaceCard key={race.id} race={race} needUpdate={triggerUpdate} />
+          {races.map((race) => (
+            <RaceCard key={race.id} race={race} triggerUpdate={triggerUpdate} />
           ))}
         </div>
       ) : (
