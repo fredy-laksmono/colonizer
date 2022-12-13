@@ -1,3 +1,4 @@
+import e from "cors";
 import { useState, useEffect } from "react";
 import UniqueCard from "../components/UniqueCard";
 import { GetUniques } from "../services/UniqueServices";
@@ -7,11 +8,12 @@ const RaceDetail = () => {
     name: "",
     small: 1,
     medium: 1,
-    large: 1,
-    motherShip: 0
+    large: 1
   });
+  const [mothership, updateMothership] = useState(0);
 
   const [balance, updateBalance] = useState(-3);
+  const [uniques, updateUniques] = useState([]);
 
   const countBalance = () => {
     let checkBalance =
@@ -26,17 +28,57 @@ const RaceDetail = () => {
     updateRaceForm({ ...raceForm, [e.target.id]: e.target.value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const getUniqueData = async () => {
+    const payload = await GetUniques();
+    updateUniques(payload);
+  };
+
   // Initial use effect
+  useEffect(() => {
+    getUniqueData();
+  }, []);
+
   useEffect(() => {
     countBalance();
   }, [raceForm]);
 
-  let toRender = (
+  let motherShipRender = (
     <div>
-      <form>
+      <label>MotherShip</label>
+      {uniques ? (
+        <div>
+          {uniques.map((unique) => (
+            <UniqueCard unique={unique} updateMothership={updateMothership} />
+          ))}
+        </div>
+      ) : (
+        <div>loading..</div>
+      )}
+    </div>
+  );
+
+  let submitButtonRender = <button disabled>Save</button>;
+
+  if (balance === 0 && mothership !== 0 && raceForm.name !== "") {
+    submitButtonRender = <button>Save</button>;
+  }
+
+  let raceFormRender = (
+    <div>
+      <form onSubmit={handleSubmit}>
         <div>Create your first race</div>
         <div>
-          <label>Name</label> <input type="text" />
+          <label>Name</label>{" "}
+          <input
+            onChange={handleUnitUpdate}
+            id="name"
+            value={raceForm.name}
+            type="text"
+          />
         </div>
         <div>
           <label>Balance: {balance}</label>
@@ -68,12 +110,17 @@ const RaceDetail = () => {
             type="number"
           />
         </div>
-        <div>
-          <label>MotherShip</label>
-          <input type="text" />
-        </div>
-        <button>Save</button>
+        <div>{motherShipRender}</div>
+        {submitButtonRender}
       </form>
+    </div>
+  );
+
+  let toRender = (
+    <div>
+      <div></div>
+      {raceFormRender}
+      <div></div>
     </div>
   );
   return toRender;

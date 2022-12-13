@@ -28,6 +28,11 @@
   color: #61dafb;
 }
 
+.click-able{
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
