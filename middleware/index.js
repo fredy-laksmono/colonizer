@@ -22,10 +22,10 @@ const createToken = (payload) => {
 
 const verifyToken = (req, res, next) => {
   const { token } = res.locals;
-  console.log("verifyToken", token);
+  //   console.log("verifyToken", token);
   try {
     let payload = jwt.verify(token, APP_SECRET);
-    console.log("verifyToken payload", payload);
+    // console.log("verifyToken payload", payload);
     if (payload) {
       res.locals.payload = payload;
       return next();
@@ -40,8 +40,8 @@ const verifyToken = (req, res, next) => {
 const stripToken = (req, res, next) => {
   try {
     const token = req.headers["authorization"].split(" ")[1];
-    console.log("stripToken reqHeaders", req.headers);
-    console.log("stripToken token", token);
+    // console.log("stripToken reqHeaders", req.headers);
+    // console.log("stripToken token", token);
     if (token) {
       res.locals.token = token;
       return next();

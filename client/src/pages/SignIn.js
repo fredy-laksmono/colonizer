@@ -32,7 +32,7 @@ const SignIn = ({ setUser, toggleAuthenticated }) => {
       });
       setUser(payload);
       toggleAuthenticated(true);
-      navigate(-1);
+      navigate("/home");
     } catch (error) {
       setErrorMessage(error.response.data.msg);
     }

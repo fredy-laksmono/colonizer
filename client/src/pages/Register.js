@@ -43,7 +43,7 @@ const Register = ({ setUser, toggleAuthenticated }) => {
         email: "",
         password: ""
       });
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.log(error);
       if (error.response.data.msg == "Email already in use.") {

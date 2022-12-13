@@ -6,6 +6,7 @@ import io from "socket.io-client";
 import Nav from "./components/Nav";
 import Welcome from "./pages/Welcome";
 import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
 import { CheckSession } from "./services/Auth";
 
 const socket = io.connect("http://localhost:3001");
@@ -63,6 +64,15 @@ function App() {
             path="/register"
             element={
               <Register
+                setUser={setUser}
+                toggleAuthenticated={toggleAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <SignIn
                 setUser={setUser}
                 toggleAuthenticated={toggleAuthenticated}
               />
