@@ -105,7 +105,13 @@ function App() {
           <Route path="/unique" element={<UniqueManagement />} />
           <Route
             path="/races"
-            element={<RaceManagement userRaces={userRaces} />}
+            element={
+              <RaceManagement
+                user={user}
+                userRaces={userRaces}
+                authenticated={authenticated}
+              />
+            }
           />
           <Route
             path="/races/new"

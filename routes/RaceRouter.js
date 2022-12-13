@@ -15,4 +15,12 @@ router.get(
   middleware.verifyToken,
   controller.GetUserRaces
 );
+
+router.delete(
+  "/:id",
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.DeleteRace
+);
+
 module.exports = router;

@@ -19,7 +19,18 @@ const GetUserRaces = async (req, res) => {
   }
 };
 
+const DeleteRace = async (req, res) => {
+  try {
+    let raceId = parseInt(req.params.id);
+    await Race.destroy({ where: { id: raceId } });
+    res.send({ message: `Deleted race with ID of ${raceId}` });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   CreateRace,
-  GetUserRaces
+  GetUserRaces,
+  DeleteRace
 };

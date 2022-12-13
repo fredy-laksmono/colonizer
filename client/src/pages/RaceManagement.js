@@ -1,16 +1,35 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import RaceCard from "../components/RaceCard";
+import { GetUserRaces } from "../services/RaceServices";
 
-const RaceManagement = ({ userRaces }) => {
+const RaceManagement = ({ user, userRaces, authenticated }) => {
   const navigate = useNavigate();
-
-  if (userRaces) {
-    console.log("user race", userRaces);
-  }
+  const [races, updateRaces] = useState([]);
+  const [needUpdate, toggleNeedUpdate] = useState(false);
 
   const handleCreateNewRace = () => {
     navigate("/races/new");
   };
+
+  if (!authenticated) {
+    navigate("/welcome");
+  }
+
+  // run when update needed
+  useEffect(() => {
+    if (userRaces && needUpdate) {
+      updateRaces(userRaces);
+    }
+  }, [needUpdate]);
+
+  // initialize when load
+  useEffect(() => {
+    if (userRaces) {
+      updateRaces(userRaces);
+    }
+  }, []);
+
   let raceListRender = (
     <div>
       {userRaces ? (
