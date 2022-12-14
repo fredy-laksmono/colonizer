@@ -50,7 +50,11 @@ io.on("connection", (socket) => {
   socket.on("create_game", (data) => {
     console.log("create game", data);
     socket.join(data);
-    socket.to(data.room).emit("game_created", data);
+  });
+
+  socket.on("join_game", (data) => {
+    console.log("join game", data);
+    socket.join(data);
   });
 
   socket.on("planet_click", (data) => {

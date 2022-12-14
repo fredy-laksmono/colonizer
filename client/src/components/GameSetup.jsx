@@ -2,11 +2,15 @@ import RaceSelectCard from "./RaceSelectCard"
 import { useEffect } from "react"
 const uuid = require('uuid')
 
-const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, updateRoom, toggleInGame, updateHost}) => {
+const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, room, updateRoom, toggleInGame, updateHost}) => {
     let raceListRender = <div></div>
 
     const handleChooseRace = (e) => {
         updateRaceSelected(e.target.value)
+    }
+
+    const handleChangeRoom = (e) => {
+        updateRoom(e.target.value)
     }
 
     const createGame = () => {
@@ -16,6 +20,13 @@ const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, updateRoom
         socket.emit("create_game", {room})
         updateRoom(room)
         updateHost(true)
+        toggleInGame(true)
+    }
+
+    const joinGame = () => {
+        console.log("joining game", room)
+        socket.emit("join_game", {room})
+        updateHost(false)
         toggleInGame(true)
     }
 
@@ -41,7 +52,7 @@ const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, updateRoom
         <div>Select your race</div>
         <div>{raceListRender}</div>
         <div><button onClick={createGame}>Create Game</button></div>
-        <div><input placeholder="Room ID" type="text"/> <button>Join Game</button></div>
+        <div><input onChange={handleChangeRoom} placeholder="Room ID" type="text" value={room}/> <button onClick={joinGame}>Join Game</button></div>
     </div>)
     return toRender
 }
