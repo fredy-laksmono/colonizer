@@ -110,6 +110,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
           <GameSetup
             socket={socket}
             races={races}
+            raceSelected={raceSelected}
             updateRaceSelected={updateRaceSelected}
           />
         </div>

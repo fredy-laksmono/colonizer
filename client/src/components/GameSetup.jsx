@@ -1,13 +1,23 @@
 import RaceSelectCard from "./RaceSelectCard"
 import { useEffect } from "react"
 
-const GameSetup = ({ socket, races, updateRaceSelected }) => {
+const GameSetup = ({ socket, races, updateRaceSelected, raceSelected}) => {
     let raceListRender = <div></div>
 
     const handleChooseRace = (e) => {
         console.log(e)
         updateRaceSelected(e.target.value)
     }
+
+
+    useEffect(() => {
+        if(races.length>0 && raceSelected === 0){
+            let firstRaceId = races[0].id
+
+            updateRaceSelected(firstRaceId.toString())
+        }
+        
+    },[races])
 
     if (races){
         raceListRender = (<select onChange={handleChooseRace}>
