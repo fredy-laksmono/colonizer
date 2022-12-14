@@ -47,6 +47,12 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("receive_counter", data);
   });
 
+  socket.on("create_game", (data) => {
+    console.log("create game", data);
+    socket.join(data);
+    socket.to(data.room).emit("game_created", data);
+  });
+
   socket.on("planet_click", (data) => {
     // console.log("emit_planet click", data);
     socket.broadcast.emit("planet_update", data);

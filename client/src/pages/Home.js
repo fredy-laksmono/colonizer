@@ -76,12 +76,17 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
       updateCounter(data);
       updateIsRunCounter(false);
     });
+    socket.on("game_created", (data) => {
+      console.log("Make host", data);
+      updateHost(true);
+    });
   }, [socket]);
 
   let gameTopMenuRender = (
     <div>
       <div>
-        <button onClick={toggleHost}>{isHost ? "Host" : "Make host"}</button>
+        {/* <button onClick={toggleHost}>{isHost ? "Host" : "Make host"}</button> */}
+        Room# {room}
       </div>
       <div>
         <label>{counter}</label>
@@ -112,7 +117,9 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
             races={races}
             raceSelected={raceSelected}
             toggleInGame={toggleInGame}
+            updateRoom={updateRoom}
             updateRaceSelected={updateRaceSelected}
+            updateHost={updateHost}
           />
         </div>
       )}
