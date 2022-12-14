@@ -73,7 +73,8 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   console.log("race", races);
   console.log("userRace", userRaces);
   let raceListRender = (
-    <div>
+    <div className="race-list">
+      <div></div>
       {races.length !== 0 ? (
         <div>
           {races.map((race) => (
@@ -83,6 +84,7 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
       ) : (
         <div>loading..</div>
       )}
+      <div></div>
     </div>
   );
   let toRender = (

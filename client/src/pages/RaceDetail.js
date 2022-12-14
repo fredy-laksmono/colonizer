@@ -48,7 +48,7 @@ const RaceDetail = ({ user, authenticated }) => {
       large: 1
     });
     updateMothership(0);
-    navigate("/home");
+    navigate("/races");
   };
 
   const getUniqueData = async () => {

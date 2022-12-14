@@ -48,6 +48,23 @@
   transition: all 0.2s;
 }
 
+.card {
+  background: white;
+  padding: 3rem 5rem;
+  margin : 1rem;
+  width: 10rem;
+}
+
+.expand {
+  width: 10rem;
+}
+
+.race-list {
+  display: grid;
+  grid-template-columns: 5fr 2fr 5fr;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
