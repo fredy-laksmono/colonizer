@@ -81,6 +81,8 @@ const RaceCard = ({race, triggerUpdate}) => {
                   id="small"
                   value={raceForm.small}
                   type="number"
+                  min="0"
+                  max="3"
                 />
               </div>
               <div>
@@ -91,6 +93,8 @@ const RaceCard = ({race, triggerUpdate}) => {
                   id="medium"
                   value={raceForm.medium}
                   type="number"
+                  min="0"
+                  max="3"
                 />
               </div>
               <div>
@@ -101,6 +105,8 @@ const RaceCard = ({race, triggerUpdate}) => {
                   id="large"
                   value={raceForm.large}
                   type="number"
+                  min="0"
+                  max="3"
                 />
               </div>
               {submitButtonRender}

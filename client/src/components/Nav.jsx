@@ -8,7 +8,7 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
           <div></div>
           <div className='signin-nav-menu'>
             <div></div>
-            <div className='click-able'>Play</div>
+            <Link to="/home" style={{textDecoration: 'none'}}>Play</Link>
             <Link to="/races" style={{textDecoration: 'none'}}>Race</Link>
             <div></div>
           </div>

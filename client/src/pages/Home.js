@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Game from "./Game";
+import GameSetup from "../components/GameSetup";
 import { useNavigate } from "react-router-dom";
 
 const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
@@ -91,7 +92,9 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
           <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
         </div>
       ) : (
-        <div></div>
+        <div>
+          <GameSetup socket={socket} />
+        </div>
       )}
     </div>
   );

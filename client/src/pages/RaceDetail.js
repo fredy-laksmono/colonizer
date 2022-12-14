@@ -111,30 +111,36 @@ const RaceDetail = ({ user, authenticated }) => {
           <label>Balance: {balance}</label>
         </div>
         <div>
-          <label>Small unit</label>
+          <label>Small unit </label>
           <input
             onChange={handleUnitUpdate}
             id="small"
             value={raceForm.small}
             type="number"
+            min="0"
+            max="3"
           />
         </div>
         <div>
-          <label>Medium unit</label>
+          <label>Medium unit </label>
           <input
             onChange={handleUnitUpdate}
             id="medium"
             value={raceForm.medium}
             type="number"
+            min="0"
+            max="3"
           />
         </div>
         <div>
-          <label>Large unit</label>
+          <label>Large unit </label>
           <input
             onChange={handleUnitUpdate}
             id="large"
             value={raceForm.large}
             type="number"
+            min="0"
+            max="3"
           />
         </div>
         <div>{motherShipRender}</div>
