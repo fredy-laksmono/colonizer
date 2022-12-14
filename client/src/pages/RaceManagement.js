@@ -10,6 +10,13 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   const [needCheckSession, toggleNeedCheckSession] = useState(false);
   console.log("needUpdate = ", needUpdate);
 
+  const refreshRaces = async () => {
+    if (user) {
+      console.log("refreshing, userId", user.id);
+      let payload = await GetUserRaces(user.id);
+      updateRaces(payload);
+    }
+  };
   const checkForSession = () => {
     if (!user) {
       navigate("/signin");
@@ -17,11 +24,11 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
       toggleNeedCheckSession(false);
     }
   };
-  if (!authenticated) {
-    setTimeout(() => {
-      toggleNeedCheckSession(true);
-    }, 5000);
-  }
+  //   if (!authenticated) {
+  //     setTimeout(() => {
+  //       toggleNeedCheckSession(true);
+  //     }, 5000);
+  //   }
 
   const handleCreateNewRace = () => {
     navigate("/races/new");
@@ -33,19 +40,19 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   };
 
   // check for session
-  useEffect(() => {
-    if (needCheckSession) {
-      checkForSession();
-    }
-  }, [needCheckSession]);
+  //   useEffect(() => {
+  //     if (needCheckSession) {
+  //       checkForSession();
+  //     }
+  //   }, [needCheckSession]);
 
-  useEffect(() => {
-    console.log("Checking for length");
-    if (races.length === 0) {
-      console.log("Checking for length true");
-      toggleNeedUpdate(true);
-    }
-  });
+  //   useEffect(() => {
+  //     console.log("Checking for length");
+  //     if (races.length === 0) {
+  //       console.log("Checking for length true");
+  //       toggleNeedUpdate(true);
+  //     }
+  //   });
 
   // run when update needed
   useEffect(() => {
@@ -55,20 +62,21 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
         console.log("needUpdate Updating", needUpdate);
         let payload = await GetUserRaces(user.id);
         updateRaces(payload);
-        toggleNeedUpdate(false);
       }
     };
     getUserRace();
+    toggleNeedUpdate(false);
   }, [needUpdate]);
 
   // initialize data
   useEffect(() => {
-    console.log("initial useEffect");
-    if (userRaces.length !== 0) {
-      console.log("initial useEffect update");
-      updateRaces(userRaces);
-    }
-  }, []);
+    // console.log("initial useEffect");
+    // if (userRaces.length !== 0) {
+    //   console.log("initial useEffect update");
+    //   updateRaces(userRaces);
+    // }
+    if (races.length === 0) refreshRaces();
+  });
 
   console.log("race", races);
   console.log("userRace", userRaces);
