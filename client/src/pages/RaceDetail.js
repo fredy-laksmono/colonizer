@@ -69,14 +69,19 @@ const RaceDetail = ({ user, authenticated }) => {
     <div>
       <label>MotherShip</label>
       {uniques ? (
-        <div>
-          {uniques.map((unique) => (
-            <UniqueCard
-              key={unique.id}
-              unique={unique}
-              updateMothership={updateMothership}
-            />
-          ))}
+        <div className="race-list">
+          <div></div>
+          <div>
+            {uniques.map((unique) => (
+              <UniqueCard
+                key={unique.id}
+                unique={unique}
+                updateMothership={updateMothership}
+                mothership={mothership}
+              />
+            ))}
+          </div>
+          <div></div>
         </div>
       ) : (
         <div>loading..</div>

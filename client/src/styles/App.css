@@ -55,6 +55,20 @@
   width: 10rem;
 }
 
+.card-small {
+  background: white;
+  padding: 1rem 1rem;
+  margin : 1rem;
+  width: 10rem;
+}
+
+.card-small-selected {
+  background: rgb(142, 225, 232);
+  padding: 1rem 1rem;
+  margin : 1rem;
+  width: 10rem;
+}
+
 .expand {
   width: 10rem;
 }
