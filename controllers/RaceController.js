@@ -1,4 +1,8 @@
 const { Race } = require("../models");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+const APP_SECRET = process.env.APP_SECRET;
 
 const CreateRace = async (req, res) => {
   try {
@@ -35,15 +39,15 @@ const DeleteRace = async (req, res) => {
     const token = req.headers["authorization"].split(" ")[1];
     try {
       let payload = jwt.verify(token, APP_SECRET);
-      await Review.destroy({
+      await Race.destroy({
         where: { id: raceId, owner_id: payload.id }
       });
       res.send({ message: `Deleted race with ID of ${raceId}` });
     } catch (error) {
-      res.send({ message: `${error}` });
+      throw error;
     }
   } catch (error) {
-    res.send({ message: `${error}` });
+    throw error;
   }
 };
 
