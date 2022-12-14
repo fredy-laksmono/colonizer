@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import Game from "./Game";
 import GameSetup from "../components/GameSetup";
 import { useNavigate } from "react-router-dom";
+import { GetUserRaces } from "../services/RaceServices";
 
 const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
   const [isRunCounter, updateIsRunCounter] = useState(false);
-
   const [counter, updateCounter] = useState(0);
-
   const [isHost, updateHost] = useState(false);
+  const [races, updateRaces] = useState([]);
+  const [raceSelected, updateRaceSelected] = useState(0);
+  const [room, updateRoom] = useState("");
 
   const navigate = useNavigate();
   if (!authenticated) {
@@ -18,6 +20,13 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
   const toggleHost = () => {
     updateHost(!isHost);
     socket.emit("host_change", isHost);
+  };
+
+  const refreshData = async () => {
+    if (user) {
+      let payload = await GetUserRaces(user.id);
+      updateRaces(payload);
+    }
   };
 
   const startCounter = () => {
@@ -35,6 +44,11 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
   const removeHost = () => {
     updateHost(false);
   };
+
+  // initialize data
+  useEffect(() => {
+    refreshData();
+  }, [user]);
 
   useEffect(() => {
     if (isRunCounter) {
@@ -93,7 +107,11 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
         </div>
       ) : (
         <div>
-          <GameSetup socket={socket} />
+          <GameSetup
+            socket={socket}
+            races={races}
+            updateRaceSelected={updateRaceSelected}
+          />
         </div>
       )}
     </div>

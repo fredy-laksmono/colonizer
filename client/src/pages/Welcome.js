@@ -11,7 +11,7 @@ const Welcome = ({ authenticated }) => {
   };
   let toRender = (
     <div>
-      <div>Welcome to Colonizer</div>
+      <div>Welcome to Battleship Chaos</div>
       <div>Video</div>
       <button onClick={handlePlayGame}>Play Game</button>
     </div>

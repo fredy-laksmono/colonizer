@@ -32,7 +32,7 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
   
     return (
       <header>
-        Colonizer
+        Battleship Chaos
         {authenticated && user ? authenticatedOptions : publicOptions}
       </header>
     )

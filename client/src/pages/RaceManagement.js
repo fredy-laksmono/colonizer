@@ -90,7 +90,7 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
           ))}
         </div>
       ) : (
-        <div>loading..</div>
+        <div></div>
       )}
       <div></div>
     </div>
