@@ -14,12 +14,13 @@ const RaceCard = ({race, triggerUpdate}) => {
 
     const navigate = useNavigate()
 
-    const deleteRace = async() => {
+    const deleteRace = async(e) => {
         await DeleteRace(race.id)
         triggerUpdate()
     }
     const editRace = async() => {
-
+        await UpdateRace(race.id, raceForm)
+        triggerUpdate()
     }
 
     const countBalance = () => {
@@ -32,30 +33,32 @@ const RaceCard = ({race, triggerUpdate}) => {
     };
 
     const handleUnitUpdate = (e) => {
+      e.stopPropagation()
         updateRaceForm({ ...raceForm, [e.target.id]: e.target.value });
       };
     
       const handleSubmit = async (e) => {
+        console.log("here")
         e.preventDefault();
+        e.stopPropagation()
         let payload = { 
-          name: raceForm.name,
           small: raceForm.small,
           medium: raceForm.medium,
           large: raceForm.large,
         };
-        await UpdateRace(race.id, payload);
-        // updateMothership(0);
-        navigate("/home");
+        console.log("updating race",race,payload)
+        await UpdateRace(race.id, payload)
+        triggerUpdate()
       };
 
       useEffect(() => {
         countBalance();
       }, [raceForm]);
 
-    let submitButtonRender = <button disabled>Save</button>;
+    let submitButtonRender = <button onClick={(e)=>e.stopPropagation()} type="button" disabled>Save</button>;
 
   if (balance === 0) {
-    submitButtonRender = <button>Save</button>;
+    submitButtonRender = <button onClick={handleSubmit} type="button">Save</button>;
   }
 
 
@@ -66,39 +69,42 @@ const RaceCard = ({race, triggerUpdate}) => {
             </motion.h3>
             {isOpen && 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="expand">
-            <form onSubmit={handleSubmit}>
-        <div>
-          <label>Balance: {balance}</label>
-        </div>
-        <div>
-          <label>Small unit </label>
-          <input
-            onChange={handleUnitUpdate}
-            id="small"
-            value={raceForm.small}
-            type="number"
-          />
-        </div>
-        <div>
-          <label>Medium unit </label>
-          <input
-            onChange={handleUnitUpdate}
-            id="medium"
-            value={raceForm.medium}
-            type="number"
-          />
-        </div>
-        <div>
-          <label>Large unit </label>
-          <input
-            onChange={handleUnitUpdate}
-            id="large"
-            value={raceForm.large}
-            type="number"
-          />
-        </div>
-        {submitButtonRender}
-      </form>
+            <form>
+              <div>
+                <label>Balance: {balance}</label>
+              </div>
+              <div>
+                <label>Small unit </label>
+                <input 
+                  onClick={(e)=>e.stopPropagation()}
+                  onChange={handleUnitUpdate}
+                  id="small"
+                  value={raceForm.small}
+                  type="number"
+                />
+              </div>
+              <div>
+                <label>Medium unit </label>
+                <input
+                  onClick={(e)=>e.stopPropagation()}
+                  onChange={handleUnitUpdate}
+                  id="medium"
+                  value={raceForm.medium}
+                  type="number"
+                />
+              </div>
+              <div>
+                <label>Large unit </label>
+                <input
+                  onClick={(e)=>e.stopPropagation()}
+                  onChange={handleUnitUpdate}
+                  id="large"
+                  value={raceForm.large}
+                  type="number"
+                />
+              </div>
+              {submitButtonRender}
+            </form>
                 <button onClick={deleteRace} >Delete</button>
             </motion.div>
 }

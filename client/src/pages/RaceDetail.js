@@ -93,7 +93,6 @@ const RaceDetail = ({ user, authenticated }) => {
   let raceFormRender = (
     <div>
       <form onSubmit={handleSubmit}>
-        <div>Create your first race</div>
         <div>
           <label>Name</label>{" "}
           <input
