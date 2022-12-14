@@ -1,12 +1,20 @@
 import RaceSelectCard from "./RaceSelectCard"
 import { useEffect } from "react"
+const uuid = require('uuid')
 
 const GameSetup = ({ socket, races, updateRaceSelected, raceSelected}) => {
     let raceListRender = <div></div>
 
     const handleChooseRace = (e) => {
-        console.log(e)
         updateRaceSelected(e.target.value)
+    }
+
+    const createGame = () => {
+        let randId = uuid.v4()
+        randId = randId.slice(-4)
+        console.log("creating game", randId)
+        // socket.emit("createGame", {roomId: randId})
+
     }
 
 
@@ -31,7 +39,7 @@ const GameSetup = ({ socket, races, updateRaceSelected, raceSelected}) => {
     let toRender = (<div>
         <div>Select your race</div>
         <div>{raceListRender}</div>
-        <div><button>Create Game</button></div>
+        <div><button onClick={createGame}>Create Game</button></div>
         <div><input placeholder="Room ID" type="text"/> <button>Join Game</button></div>
     </div>)
     return toRender

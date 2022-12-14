@@ -111,6 +111,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
             socket={socket}
             races={races}
             raceSelected={raceSelected}
+            toggleInGame={toggleInGame}
             updateRaceSelected={updateRaceSelected}
           />
         </div>
