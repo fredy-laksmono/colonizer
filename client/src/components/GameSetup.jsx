@@ -17,7 +17,7 @@ const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, room, upda
         let room = uuid.v4()
         room = room.slice(-4)
         console.log("creating game", room)
-        socket.emit("create_game", {room})
+        socket.emit("create_game", room)
         updateRoom(room)
         updateHost(true)
         toggleInGame(true)
@@ -25,7 +25,7 @@ const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, room, upda
 
     const joinGame = () => {
         console.log("joining game", room)
-        socket.emit("join_game", {room})
+        socket.emit("join_game", room)
         updateHost(false)
         toggleInGame(true)
     }

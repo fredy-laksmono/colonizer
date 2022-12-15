@@ -21,15 +21,24 @@ const ChatWindow = ({socket, user, room}) => {
 
     const handleSend = () => {
         console.log("sending", chatInput)
-        socket.emit("chat_send", {message: chatInput, user: user, room: room})
+        console.log("by", user.name)
+        console.log("in", room)
+        socket.emit("chat_send", {message: chatInput, user: user.name, room: room})
         setChatInput("")
+        // socket.emit("chat_send",{chatInput,room})
     }
     
     useEffect(() => {
-        socket.on("chat_receive", (data) => {
+        socket.on("chat_recieve", (data) => {
             console.log("received", data)
-            setChatList([...chatList, {data}])
+            console.log("chatList", chatList)
+            setChatList(chatList => [...chatList, {data}])
         })
+        // socket.on("receive_message", (data) => {
+        //     console.log("received", data)
+        //     // console.log("chatList", chatList)
+        //     // setChatList(chatList => [...chatList, {data}])
+        // })
     },[socket])
 
     let chatListRender = (<div>

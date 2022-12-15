@@ -77,6 +77,10 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
       updateCounter(data);
       updateIsRunCounter(false);
     });
+
+    socket.on("chat_recieve", (data) => {
+      console.log("received", data);
+    });
   }, [socket]);
 
   let gameTopMenuRender = (

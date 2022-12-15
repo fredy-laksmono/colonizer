@@ -1,10 +1,10 @@
 const ChatCard = ({ chat }) => {
-  const { name, message} = chat;
+  console.log("chat", chat);
 
   return (
     <div className="chat-card">
       <div className="chat-card__header">
-        {name}: {message}
+        {chat.data.user}: {chat.data.message}
       </div>
     </div>
   );
