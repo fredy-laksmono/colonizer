@@ -48,23 +48,21 @@ io.on("connection", (socket) => {
   });
 
   socket.on("create_game", (data) => {
-    // console.log("create game", data);
     socket.join(data);
-    // console.log("Create room", socket.rooms);
   });
 
   socket.on("join_game", (data) => {
-    // console.log("join game", data);
-    socket.join(data);
-    // console.log("join room", socket.rooms);
+    socket.join(data.room);
+    let announcement = {
+      user: "Info",
+      message: `${data.user.name} has joined the game`
+    };
+    socket.to(data.room).emit("chat_recieve", announcement);
+    socket.to(data.room).emit("player_joined", data.user);
   });
 
   socket.on("chat_send", (data) => {
     console.log("chat send", data);
-    let chat = data.user + " " + data.message;
-    // console.log("chat forward", chat);
-    // console.log("room", data.room);
-    // console.log("User in socket", socket.rooms);
     io.sockets.in(data.room).emit("chat_recieve", data);
   });
 
@@ -73,7 +71,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("planet_click", (data) => {
-    // console.log("emit_planet click", data);
     socket.broadcast.emit("planet_update", data);
   });
 

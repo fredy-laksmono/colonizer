@@ -108,7 +108,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
     <div>
       {inGame ? (
         <div>
-          <div>{gameTopMenuRender}</div>
+          {/* <div>{gameTopMenuRender}</div> */}
           <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
           <ChatWindow
             socket={socket}
@@ -125,6 +125,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
             raceSelected={raceSelected}
             toggleInGame={toggleInGame}
             room={room}
+            user={user}
             updateRoom={updateRoom}
             updateRaceSelected={updateRaceSelected}
             updateHost={updateHost}

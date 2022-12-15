@@ -1,5 +1,5 @@
 const BoardUnit = () => {
-    return
+    return <div className="board-unit"></div>
 
 }
 

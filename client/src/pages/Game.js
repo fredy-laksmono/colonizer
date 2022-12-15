@@ -2,13 +2,17 @@ import "../styles/game.css";
 import GameNav from "../components/GameNav";
 import { useState, useEffect } from "react";
 import GameBoard from "../components/GameBoard";
+import BattleshipBoard from "../components/BattleshipBoard";
+import PlayerLobbyCard from "../components/PlayerLobbyCard";
 
 const Game = ({ socket, isHost, isRunCounter }) => {
+  const [playerList, updatePlayerList] = useState([]);
   const [p1Counter, updatep1Counter] = useState(10);
   const [p2Counter, updatep2Counter] = useState(10);
   const [serverGameTime, updateServerGameTime] = useState(0);
   const [playersNumber, setPlayersNumber] = useState(2);
   const [player, setPlayer] = useState("p1");
+  const [currentPhase, setCurrentPhase] = useState("lobby");
   const [gameState, updateGameState] = useState({
     1: {
       1: {
@@ -206,6 +210,10 @@ const Game = ({ socket, isHost, isRunCounter }) => {
       // console.log("game state received", gameState);
       updateGameState(gameState);
     });
+    socket.on("player_joined", (data) => {
+      console.log("player joined", data);
+      updatePlayerList(...playerList, data);
+    });
   }, [socket]);
 
   // triggered gameState update
@@ -243,24 +251,32 @@ const Game = ({ socket, isHost, isRunCounter }) => {
       <GameNav setPlayersNumber={setPlayersNumber} setPlayer={setPlayer} />
       <div id="gameWrapper">
         <div>Game Board</div>
-        <GameBoard
-          socket={socket}
-          playersNumber={playersNumber}
-          player={player}
-          gameState={gameState}
-          updateGameState={updateGameState}
-          updatep1Counter={updatep1Counter}
-          updatep2Counter={updatep2Counter}
-        />
+        <BattleshipBoard />
       </div>
     </div>
   );
-  let toRender = (
-    <div>
-      <div>Game Screen</div>
-      {gameWrapperRender}
-    </div>
-  );
+
+  let lobbyRender = <div>Lobby</div>;
+
+  if (playerList.length > 0) {
+    lobbyRender = (
+      <div>
+        {playerList.map((player) => (
+          <PlayerLobbyCard player={player} />
+        ))}
+      </div>
+    );
+  }
+
+  let toRender = <div></div>;
+
+  if (currentPhase === "lobby") {
+    toRender = lobbyRender;
+  } else if (currentPhase === "setup") {
+  } else if (currentPhase === "game") {
+    toRender = gameWrapperRender;
+  } else if (currentPhase === "end") {
+  }
   return toRender;
 };
 

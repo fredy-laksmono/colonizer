@@ -2,7 +2,7 @@ import RaceSelectCard from "./RaceSelectCard"
 import { useEffect } from "react"
 const uuid = require('uuid')
 
-const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, room, updateRoom, toggleInGame, updateHost}) => {
+const GameSetup = ({ socket, user, races, updateRaceSelected, raceSelected, room, updateRoom, toggleInGame, updateHost}) => {
     let raceListRender = <div></div>
 
     const handleChooseRace = (e) => {
@@ -25,7 +25,8 @@ const GameSetup = ({ socket, races, updateRaceSelected, raceSelected, room, upda
 
     const joinGame = () => {
         console.log("joining game", room)
-        socket.emit("join_game", room)
+        let data = {user: user, room: room}
+        socket.emit("join_game", data)
         updateHost(false)
         toggleInGame(true)
     }

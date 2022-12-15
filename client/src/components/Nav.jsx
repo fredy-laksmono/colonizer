@@ -13,7 +13,7 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
             <div></div>
           </div>
           <div className='signin-nav-profile'>
-            <button onClick={handleLogOut}>
+            <button className='border-radius-20' onClick={handleLogOut}>
               Log Out
             </button>
             <div>{user.name}</div>
