@@ -3,6 +3,7 @@ import Game from "./Game";
 import GameSetup from "../components/GameSetup";
 import { useNavigate } from "react-router-dom";
 import { GetUserRaces } from "../services/RaceServices";
+import ChatWindow from "../components/ChatWindow";
 
 const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
   const [isRunCounter, updateIsRunCounter] = useState(false);
@@ -105,6 +106,12 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
         <div>
           <div>{gameTopMenuRender}</div>
           <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
+          <ChatWindow
+            socket={socket}
+            user={user}
+            room={room}
+            authenticated={authenticated}
+          />
         </div>
       ) : (
         <div>
