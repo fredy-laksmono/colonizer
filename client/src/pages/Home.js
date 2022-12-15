@@ -89,7 +89,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
         {/* <button onClick={toggleHost}>{isHost ? "Host" : "Make host"}</button> */}
         Room# {room}
       </div>
-      <div>
+      {/* <div>
         <label>{counter}</label>
       </div>
       <div>
@@ -100,7 +100,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
       </div>
       <div>
         <button onClick={resetCounter}>Reset Counter</button>
-      </div>
+      </div> */}
     </div>
   );
 
@@ -108,7 +108,7 @@ const Home = ({ socket, authenticated, user, inGame, toggleInGame }) => {
     <div>
       {inGame ? (
         <div>
-          {/* <div>{gameTopMenuRender}</div> */}
+          <div>{gameTopMenuRender}</div>
           <Game socket={socket} isHost={isHost} isRunCounter={isRunCounter} />
           <ChatWindow
             socket={socket}
