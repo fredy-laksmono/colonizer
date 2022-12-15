@@ -23,7 +23,6 @@ const Register = ({ setUser, toggleAuthenticated }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formValues);
     setErrorMessage("");
     try {
       const registerUser = await RegisterUser({
@@ -45,7 +44,6 @@ const Register = ({ setUser, toggleAuthenticated }) => {
       });
       navigate("/home");
     } catch (error) {
-      console.log(error);
       if (error.response.data.msg == "Email already in use.") {
         setErrorMessage(error.response.data.msg);
       } else {

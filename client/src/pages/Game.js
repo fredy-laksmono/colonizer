@@ -189,9 +189,7 @@ const Game = ({ socket, isHost, isRunCounter }) => {
   });
 
   // game state to pause/run
-  // console.log("isRunCounter", isRunCounter);
   useEffect(() => {
-    // console.log("use effect isRunCounter", isRunCounter);
     if (isRunCounter) {
       const baseCounter = setInterval(() => {
         updatep1Counter((prev1) => prev1 + 1);
@@ -207,11 +205,9 @@ const Game = ({ socket, isHost, isRunCounter }) => {
   // global sync
   useEffect(() => {
     socket.on("recieve_game_state", (gameState) => {
-      // console.log("game state received", gameState);
       updateGameState(gameState);
     });
     socket.on("player_joined", (data) => {
-      console.log("player joined", data);
       updatePlayerList(...playerList, data);
     });
   }, [socket]);

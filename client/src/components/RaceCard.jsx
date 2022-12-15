@@ -38,7 +38,6 @@ const RaceCard = ({race, triggerUpdate}) => {
       };
     
       const handleSubmit = async (e) => {
-        console.log("here")
         e.preventDefault();
         e.stopPropagation()
         let payload = { 
@@ -46,7 +45,6 @@ const RaceCard = ({race, triggerUpdate}) => {
           medium: raceForm.medium,
           large: raceForm.large,
         };
-        console.log("updating race",race,payload)
         await UpdateRace(race.id, payload)
         triggerUpdate()
       };

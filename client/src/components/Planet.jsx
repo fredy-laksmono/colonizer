@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
 const Planet = ({player, gameState, updateGameState, x, y, socket, updatep1Counter, updatep2Counter}) => {
-    // console.log(x, y)
-    // console.log(gameState)
-    // console.log(gameState[x])
-    // console.log(gameState[x][y])
-    // console.log(gameState[x][y].owner)
-    // console.log(player)
 
     let type = gameState[x][y].type;
     let units = gameState[x][y].units;
@@ -17,15 +11,12 @@ const Planet = ({player, gameState, updateGameState, x, y, socket, updatep1Count
         let originUnit = 0;
         if(player === "p1"){
             originUnit = gameState[3][1].units;
-            console.log("p1 base unit", gameState[3][1].units)
         }
         else if(player === "p2"){
             originUnit = gameState[3][5].units;
-            console.log("p2 base unit",gameState[3][5].units)
         }
         let unitsToSend = Math.floor(originUnit/2);
         let unitsLeft = originUnit - unitsToSend;
-        console.log(unitsToSend)
         if(player === "p1"){
             updatep1Counter(unitsLeft);
             if (x !== 3){
@@ -93,9 +84,6 @@ const Planet = ({player, gameState, updateGameState, x, y, socket, updatep1Count
         // Send the data to the server
         socket.emit('planet_click', {x, y, player, unitsToSend, unitsLeft});
     }
-
-    
-
     let toRender = (<div>
         <button onClick={handleClick}>
             <div>{type}</div>

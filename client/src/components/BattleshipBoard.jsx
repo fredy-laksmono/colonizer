@@ -1,26 +1,6 @@
 import BoardUnit from "./BoardUnit"
 
 const BattleshipBoard = ({ board, onCellClick }) => {
-    // const boardSize = board.length;
-    // const boardCells = board.map((row, rowIndex) => {
-    //     return row.map((cell, colIndex) => {
-    //         const cellId = `${rowIndex + 1}.${colIndex + 1}`;
-    //         return (
-    //             <div
-    //                 key={cellId}
-    //                 id={cellId}
-    //                 className={cell}
-    //                 onClick={onCellClick}
-    //             />
-    //         );
-    //     });
-    // });
-    // return (
-    //     <div id="game-board-wrapper">
-    //         {boardCells}
-    //     </div>
-    // );
-
     let boardCoords = [
         {x:1, y:1},{x:2, y:1},{x:3, y:1},{x:4, y:1},{x:5, y:1},{x:6, y:1},{x:7, y:1},{x:8, y:1},{x:9, y:1},{x:10, y:1},
         {x:1, y:2},{x:2, y:2},{x:3, y:2},{x:4, y:2},{x:5, y:2},{x:6, y:2},{x:7, y:2},{x:8, y:2},{x:9, y:2},{x:10, y:2},

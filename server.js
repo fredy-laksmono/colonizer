@@ -62,7 +62,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat_send", (data) => {
-    console.log("chat send", data);
     io.sockets.in(data.room).emit("chat_recieve", data);
   });
 
@@ -75,7 +74,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_game_state", (data) => {
-    // console.log("game state sent", data);
     socket.broadcast.emit("recieve_game_state", data);
   });
 

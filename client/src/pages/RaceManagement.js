@@ -8,11 +8,9 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   const [races, updateRaces] = useState([]);
   const [needUpdate, toggleNeedUpdate] = useState(true);
   const [needCheckSession, toggleNeedCheckSession] = useState(false);
-  console.log("needUpdate = ", needUpdate);
 
   const refreshRaces = async () => {
     if (user) {
-      console.log("refreshing, userId", user.id);
       let payload = await GetUserRaces(user.id);
       updateRaces(payload);
     }
@@ -35,7 +33,6 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   };
 
   const triggerUpdate = () => {
-    console.log("triggerUpdate");
     toggleNeedUpdate(true);
   };
 
@@ -57,9 +54,7 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   // run when update needed
   useEffect(() => {
     const getUserRace = async () => {
-      console.log("needUpdateUseEffect", needUpdate);
       if (needUpdate && user) {
-        console.log("needUpdate Updating", needUpdate);
         let payload = await GetUserRaces(user.id);
         updateRaces(payload);
       }
@@ -70,16 +65,8 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
 
   // initialize data
   useEffect(() => {
-    // console.log("initial useEffect");
-    // if (userRaces.length !== 0) {
-    //   console.log("initial useEffect update");
-    //   updateRaces(userRaces);
-    // }
     if (races.length === 0) refreshRaces();
   });
-
-  console.log("race", races);
-  console.log("userRace", userRaces);
   let raceListRender = (
     <div className="race-list">
       <div></div>
