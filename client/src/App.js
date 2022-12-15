@@ -12,6 +12,7 @@ import RaceDetail from "./pages/RaceDetail";
 import RaceManagement from "./pages/RaceManagement";
 import { CheckSession } from "./services/Auth";
 import { GetUserRaces } from "./services/RaceServices";
+import ChatWindow from "./components/ChatWindow";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -116,6 +117,10 @@ function App() {
           <Route
             path="/races/new"
             element={<RaceDetail user={user} authenticated={authenticated} />}
+          />
+          <Route
+            path="/chat"
+            element={<ChatWindow user={user} authenticated={authenticated} />}
           />
         </Routes>
       </main>
