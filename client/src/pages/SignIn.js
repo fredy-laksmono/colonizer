@@ -126,7 +126,7 @@ const SignIn = ({ setUser, toggleAuthenticated }) => {
   );
   let toRender = (
     <div className="signin-container">
-      <div className="signin-form">Sign in</div>
+      <div className="signin-form margin-30">Sign in</div>
       {signInRender}
     </div>
   );

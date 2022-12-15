@@ -139,7 +139,7 @@ const Register = ({ setUser, toggleAuthenticated }) => {
 
   let registerFormRender = (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="centerized" onSubmit={handleSubmit}>
         <div className="register-label">
           <label>Name </label>{" "}
           <input
@@ -172,7 +172,7 @@ const Register = ({ setUser, toggleAuthenticated }) => {
   );
   let toRender = (
     <div className="register-container">
-      <div className="register-header">New account</div>
+      <div className="register-header margin-30">New account</div>
       {registerFormRender}
     </div>
   );

@@ -25,8 +25,8 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
 
     const publicOptions = (
       <nav className="nav">
-        <Link to="/register" style={{textDecoration: 'none'}}>Register</Link>
-        <Link to="/signin" style={{textDecoration: 'none'}}>Sign In</Link>
+        <Link className='margin-10' to="/register" style={{textDecoration: 'none'}}>Register</Link>
+        <Link className='margin-10' to="/signin" style={{textDecoration: 'none'}}>Sign In</Link>
       </nav>
     )
   
