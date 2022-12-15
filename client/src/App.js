@@ -13,6 +13,7 @@ import RaceManagement from "./pages/RaceManagement";
 import { CheckSession } from "./services/Auth";
 import { GetUserRaces } from "./services/RaceServices";
 import ChatWindow from "./components/ChatWindow";
+import { useNavigate } from "react-router-dom";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -21,12 +22,14 @@ function App() {
   const [inGame, toggleInGame] = useState(false);
   const [user, setUser] = useState(null);
   const [userRaces, setUserRaces] = useState([]);
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     //Reset all auth related state and clear localStorage
     setUser(null);
     toggleAuthenticated(false);
     localStorage.clear();
+    navigate("/");
   };
 
   const checkToken = async () => {
