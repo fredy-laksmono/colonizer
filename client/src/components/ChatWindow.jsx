@@ -11,7 +11,8 @@ const ChatWindow = ({socket, user, room}) => {
         setChatInput(e.target.value)
     }
 
-    const handleSend = () => {
+    const handleSend = (e) => {
+        e.preventDefault()
         socket.emit("chat_send", {message: chatInput, user: user.name, room: room})
         setChatInput("")
     }
@@ -22,13 +23,21 @@ const ChatWindow = ({socket, user, room}) => {
         })
     },[socket])
 
-    let chatListRender = (<div>
+    let chatListRender = (<div className="chat-window-frame">
+        <div></div>
+        <div className="chat-window">
         {chatList.map((chat)=>(
                 <ChatCard key={uuid.v4()} chat={chat} />
             ))}
+        </div>
+        <div></div>
     </div>)
-    let chatInputRender = (<div>
-        <input onChange={handleChatInput} value={chatInput} type="text" placeholder="Message" /><button onClick={handleSend}>Send</button>
+    let chatInputRender = (<div className="chat-input-frame">
+        <div></div>
+        <form onSubmit={handleSend}>
+            <input className="chat-input" onChange={handleChatInput} value={chatInput} type="text" placeholder="Message" /><button>Send</button>
+        </form>
+        <div></div>
     </div>)
 
     let toRender = (<div>
