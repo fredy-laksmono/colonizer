@@ -10,10 +10,17 @@ const Welcome = ({ authenticated }) => {
     }
   };
   let toRender = (
-    <div>
-      <div>Welcome to Battleship Chaos</div>
-      <div>Video</div>
-      <button onClick={handlePlayGame}>Play Game</button>
+    <div className="title-wrapper">
+      <div className="margin-10">Welcome to Battleship Chaos</div>
+      <div className="margin-10">
+        <img
+          className="bc-logo border-radius-20"
+          src="BattleshipChaos.jpg"
+        ></img>
+      </div>
+      <button className="margin-10 border-radius-20" onClick={handlePlayGame}>
+        Play Game
+      </button>
     </div>
   );
   return toRender;

@@ -105,6 +105,23 @@ max-height: 100px;
   width: 70%;
 }
 
+.bc-logo {
+  width: 50%;
+  height: 50%;
+}
+
+.title-wrapper {
+  margin-top: 10vh;
+  padding: 0 10vw;
+} 
+
+.margin-10 {
+  margin: 10px;
+}
+
+.border-radius-20 {
+  border-radius: 20px;
+}
 
 @keyframes App-logo-spin {
   from {
