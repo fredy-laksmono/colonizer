@@ -27,8 +27,8 @@ app.get("/*", (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    // origin: "http://localhost:3000",
-    origin: "https://battleship-chaos.herokuapp.com:3000",
+    origin: "http://localhost:3000",
+    // origin: "https://battleship-chaos.herokuapp.com:3000",
     methods: ["GET", "POST"]
   }
 });
@@ -53,6 +53,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join_game", (data) => {
+    console.log("user joined game: ", data);
     socket.join(data.room);
     let announcement = {
       user: "Info",

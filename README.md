@@ -31,7 +31,7 @@ Battleship Chaos is a multiplayer game battleship with chaotic rule. All players
 ***
 
 ### Getting Started
-Go to the [app] (https://battleship-chaos.herokuapp.com/). First sign up for an account. 
+Go to the [Battleship Chaos](https://battleship-chaos.herokuapp.com/). First sign up for an account. 
 
 After register, create your first race. You can have as many race you want to create. The balance power need to be on 0 before you can create your race or update it. 
 
@@ -63,6 +63,6 @@ React:[https://reactjs.org/]
 NodeJs: [https://nodejs.org/en/]   
 Socket.io: [https://socket.io/]    
 Framer-motion: [https://www.framer.com/motion/]    
-W3 Schools: [https://www.w3schools.com/]
-Expanding Card Animation: [https://www.youtube.com/watch?v=rZ6iu5FQr2c&ab_channel=developedbyed]
-Dragable HTML Element: [https://www.w3schools.com/howto/howto_js_draggable.asp]
+W3 Schools: [https://www.w3schools.com/]    
+Expanding Card Animation: [https://www.youtube.com/watch?v=rZ6iu5FQr2c&ab_channel=developedbyed]     
+Dragable HTML Element: [https://www.w3schools.com/howto/howto_js_draggable.asp]     
