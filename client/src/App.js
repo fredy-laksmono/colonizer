@@ -47,6 +47,7 @@ function App() {
   // load data if user have a valid session
   useEffect(() => {
     if (user) {
+      console.log("Getting user races");
       getUserRaces(user.id);
     }
   }, [user]);
@@ -74,7 +75,13 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Welcome authenticated={authenticated} user={user} />}
+            element={
+              <Welcome
+                authenticated={authenticated}
+                user={user}
+                logEnabled={true}
+              />
+            }
           />
           <Route
             path="/home"
@@ -86,6 +93,7 @@ function App() {
                 inGame={inGame}
                 toggleInGame={toggleInGame}
                 userRaces={userRaces}
+                logEnabled={true}
               />
             }
           />
@@ -95,6 +103,7 @@ function App() {
               <Register
                 setUser={setUser}
                 toggleAuthenticated={toggleAuthenticated}
+                logEnabled={true}
               />
             }
           />
@@ -104,10 +113,14 @@ function App() {
               <SignIn
                 setUser={setUser}
                 toggleAuthenticated={toggleAuthenticated}
+                logEnabled={true}
               />
             }
           />
-          <Route path="/unique" element={<UniqueManagement />} />
+          <Route
+            path="/unique"
+            element={<UniqueManagement logEnabled={true} />}
+          />
           <Route
             path="/races"
             element={
@@ -115,16 +128,29 @@ function App() {
                 user={user}
                 userRaces={userRaces}
                 authenticated={authenticated}
+                logEnabled={true}
               />
             }
           />
           <Route
             path="/races/new"
-            element={<RaceDetail user={user} authenticated={authenticated} />}
+            element={
+              <RaceDetail
+                user={user}
+                authenticated={authenticated}
+                logEnabled={true}
+              />
+            }
           />
           <Route
             path="/chat"
-            element={<ChatWindow user={user} authenticated={authenticated} />}
+            element={
+              <ChatWindow
+                user={user}
+                authenticated={authenticated}
+                logEnabled={true}
+              />
+            }
           />
         </Routes>
       </main>

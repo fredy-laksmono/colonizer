@@ -12,6 +12,7 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   const refreshRaces = async () => {
     if (user) {
       let payload = await GetUserRaces(user.id);
+      console.log("This is payload refresh", payload);
       updateRaces(payload);
     }
   };
@@ -52,10 +53,13 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
   //   });
 
   // run when update needed
+  console.log("Here");
   useEffect(() => {
     const getUserRace = async () => {
       if (needUpdate && user) {
+        console.log("Here 2");
         let payload = await GetUserRaces(user.id);
+        console.log("This is payload", payload);
         updateRaces(payload);
       }
     };
@@ -65,8 +69,11 @@ const RaceManagement = ({ user, userRaces, authenticated }) => {
 
   // initialize data
   useEffect(() => {
-    if (races.length === 0) refreshRaces();
-  });
+    if (races.length === 0) {
+      refreshRaces();
+      console.log("Here 3");
+    }
+  }, [user]);
   let raceListRender = (
     <div className="race-list">
       <div></div>
