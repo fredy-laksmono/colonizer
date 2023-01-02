@@ -1,6 +1,4 @@
 const ChatCard = ({ chat }) => {
-  console.log("chat", chat);
-
   return (
     <div className="chat-card">
       <div className="chat-card__header">

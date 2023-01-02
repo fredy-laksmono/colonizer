@@ -15,8 +15,8 @@ import { GetUserRaces } from "./services/RaceServices";
 import ChatWindow from "./components/ChatWindow";
 import { useNavigate } from "react-router-dom";
 
-const socket = io.connect("http://localhost:3001");
-// const socket = io.connect("https://battleship-chaos.herokuapp.com:3001");
+// const socket = io.connect("http://localhost:3001");
+const socket = io.connect();
 
 function App() {
   const [authenticated, toggleAuthenticated] = useState(false);
