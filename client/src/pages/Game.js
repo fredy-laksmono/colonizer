@@ -5,7 +5,7 @@ import GameBoard from "../components/GameBoard";
 import BattleshipBoard from "../components/BattleshipBoard";
 import PlayerLobbyCard from "../components/PlayerLobbyCard";
 
-const Game = ({ socket, isHost, isRunCounter }) => {
+const Game = ({ socket, isHost, isRunCounter, user }) => {
   const [playerList, updatePlayerList] = useState([]);
   const [p1Counter, updatep1Counter] = useState(10);
   const [p2Counter, updatep2Counter] = useState(10);
@@ -153,6 +153,7 @@ const Game = ({ socket, isHost, isRunCounter }) => {
 
   // triggered when player update a planet
 
+  console.log("current playerList", playerList);
   socket.on("planet_update", (data) => {
     if (data.x !== 3) {
       updateGameState({
@@ -204,12 +205,26 @@ const Game = ({ socket, isHost, isRunCounter }) => {
 
   // global sync
   useEffect(() => {
+    console.log("playerList outside", playerList);
     socket.on("recieve_game_state", (gameState) => {
       updateGameState(gameState);
     });
     socket.on("player_joined", (data) => {
-      updatePlayerList(...playerList, data);
+      console.log("player joined", data);
+      updatePlayerList((pList) => [
+        ...pList,
+        {
+          name: data.name,
+          id: data.id,
+          email: data.email
+        }
+      ]);
     });
+
+    return () => {
+      socket.off("recieve_game_state");
+      socket.off("player_joined");
+    };
   }, [socket]);
 
   // triggered gameState update
@@ -232,13 +247,25 @@ const Game = ({ socket, isHost, isRunCounter }) => {
   }, [serverGameTime]);
 
   useEffect(() => {
-    const serverCounter = setInterval(() => {
-      updateServerGameTime((prev) => prev + 1);
-    }, 50);
+    // const serverCounter = setInterval(() => {
+    //   updateServerGameTime((prev) => prev + 1);
+    // }, 50);
 
-    return () => {
-      clearInterval(serverCounter);
-    };
+    if (isHost) {
+      console.log("player become host");
+      updatePlayerList([
+        ...playerList,
+        {
+          name: user.name,
+          id: user.id,
+          email: user.email
+        }
+      ]);
+    }
+
+    // return () => {
+    //   clearInterval(serverCounter);
+    // };
   }, []);
 
   let gameWrapperRender = (
@@ -257,6 +284,7 @@ const Game = ({ socket, isHost, isRunCounter }) => {
   if (playerList.length > 0) {
     lobbyRender = (
       <div>
+        <div>Lobby</div>
         {playerList.map((player) => (
           <PlayerLobbyCard player={player} />
         ))}
